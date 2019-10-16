@@ -1,4 +1,7 @@
-<h1>Does this do anything</h1>
+<h1>South Florida Classical News Scraping</h1>
   {{#each articles}}
-  <p>{{this._id}}, {{this.title}}, {{this.link}}</p>
+  <h3>{{this.title}}</h3> 
+  <p>{{this.link}}</p>
+  <p>{{this.summary}}</p>
+  <hr>
     {{/each}}

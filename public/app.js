@@ -12,6 +12,8 @@ $.getJSON("/articles", function(data) {
   });
 
   // Whenever someone clicks a p tag
+
+  
   $(".save-article").on("click", function(event) {
     event.preventDefault();
     console.log("hey bitches");
@@ -22,12 +24,19 @@ $.getJSON("/articles", function(data) {
   
     // // Now make an ajax call for the Article
     $.ajax({
-      method: "GET",
-      url: "/articles/" + thisId
-    })
-      // With that done, add the note information to the page
-      .then(function(data) {
-        console.log(data);
+        method: "POST",
+        url: "/articles/" + thisId,
+        data: {
+          isSaved: true
+        }
+      })
+        // With that done
+        .then(function(data) {
+          // Log the response
+          console.log(data);
+        });
+
+    });
         // The title of the article
         // $("#notes").append("<h2>" + data.title + "</h2>");
         // // An input to enter a new title
@@ -45,5 +54,3 @@ $.getJSON("/articles", function(data) {
         //   $("#bodyinput").val(data.note.body);
         // }
       });
-  });
-});

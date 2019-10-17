@@ -52,7 +52,7 @@ app.get("/scrape", function(req, res) {
       $("div h3").first().siblings("p").each(function(i, element) {
           ps.push($(element).text())
       });
-      console.log(ps)
+      //console.log(ps)
       $("div h3").each(function(i, element) {
         // Save an empty result object
         var result = {};
@@ -66,12 +66,14 @@ app.get("/scrape", function(req, res) {
           .attr("href");
         
         result.summary = ps[i];
+        result.isSaved = false;
+        console.log(result)
   
         // Create a new Article using the `result` object built from scraping
         db.Article.create(result)
           .then(function(dbArticle) {
             // View the added result in the console
-            console.log(dbArticle);
+            //console.log(dbArticle);
           })
           .catch(function(err) {
             // If an error occurred, log it
@@ -114,9 +116,24 @@ app.get("/articles", function(req, res) {
         res.json(err);
       });
   });
+
+  app.post('/articles/:id', (req,res) => {
+    db.Article.update(req.body)
+    .then(function(dbArticle) {
+        return db.Article.update({ _id: req.params.id }, { isSaved: true });
+    })
+    .then(function(dbArticle) {
+        // If we were able to successfully update an Article, send it back to the client
+        res.json(dbArticle);
+      })
+      .catch(function(err) {
+        // If an error occurred, send it to the client
+        res.json(err);
+      });
+  });
   
   // Route for saving/updating an Article's associated Note
-  app.post("/articles/:id", function(req, res) {
+  app.post("/saved", function(req, res) {
     // Create a new note and pass the req.body to the entry
     db.Note.create(req.body)
       .then(function(dbNote) {

@@ -34,20 +34,59 @@ $.getJSON("/articles", function(data) {
         });
 
     });
-        // The title of the article
-        // $("#notes").append("<h2>" + data.title + "</h2>");
-        // // An input to enter a new title
-        // $("#notes").append("<input id='titleinput' name='title' >");
-        // // A textarea to add a new note body
-        // $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
-        // // A button to submit a new note, with the id of the article saved to it
-        // $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
-  
-        // // If there's a note in the article
-        // if (data.note) {
-        //   // Place the title of the note in the title input
-        //   $("#titleinput").val(data.note.title);
-        //   // Place the body of the note in the body textarea
-        //   $("#bodyinput").val(data.note.body);
-        // }
-      });
+
+
+    // route to save note  
+    $(".add-note").on("click", function (event) {
+        event.preventDefault();
+        console.log("I'm an add note log bitch");
+
+        // Save the id from the p tag
+        var thisId = $(this).data("id");
+        console.log(thisId)
+        // Get the modal
+        var modal = document.getElementById("myModal");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+        // Display the modal
+        modal.style.display = "block";
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        $(".save-note").on("click", function (event) {
+            console.log("let's save this note bitch");
+            var newNote = $(".modal-text").val().trim();
+            console.log(newNote);
+            modal.style.display = "none";
+        
+
+        // Now make an ajax call to save the note
+        $.ajax({
+            method: "POST",
+            url: "/notes/" + thisId,
+            data: {
+                body: newNote,
+                article: thisId
+            }
+        })
+            // With that done
+            .then(function (data) {
+                // Log the response
+                console.log(data);
+            });
+
+    });
+});
+
+});

@@ -1,8 +1,6 @@
 $(function() {
 
 // Grab the articles as a json
-alert("chode")
-
 $.getJSON("/articles", function(data) {
     // For each one
     for (var i = 0; i < data.length; i++) {
@@ -11,9 +9,8 @@ $.getJSON("/articles", function(data) {
     }
   });
 
-  // Whenever someone clicks a p tag
 
-  
+// route to save article  
   $(".save-article").on("click", function(event) {
     event.preventDefault();
     console.log("hey bitches");
@@ -22,7 +19,7 @@ $.getJSON("/articles", function(data) {
     var thisId = $(this).data("id");
     console.log(thisId)
   
-    // // Now make an ajax call for the Article
+    // // Now make an ajax call to save the article
     $.ajax({
         method: "POST",
         url: "/articles/" + thisId,

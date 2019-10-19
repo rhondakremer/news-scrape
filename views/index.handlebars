@@ -1,7 +1,7 @@
 <h1>South Florida Classical News Scraping</h1>
   {{#each articles}}
   <h3>{{this.title}}</h3> 
-  <h4>{{this.link}}</h4>
+  <h4><a href={{this.link}}>{{this.link}}</a></h4>
   <p>{{this.summary}}</p>
   <p>{{this._id}}</p>
   <button class="save-article" data-id="{{this._id}}">Save Article</button>

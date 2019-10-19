@@ -165,6 +165,7 @@ app.post("/notes/:id", function(req, res) {
     // Create a new note and pass the req.body to the entry
     db.Note.create(req.body)
     .then(function (dbNote) {
+        db.Article.findOneAndUpdate({ "_id": req.params.id }, {$push: { "notes": dbNote } })
         // View the added result in the console
         console.log(dbNote);
     })
@@ -172,5 +173,20 @@ app.post("/notes/:id", function(req, res) {
         // If an error occurred, log it
         console.log(err);
     });
+  });
+
+    // Route for getting all Articles from the db
+app.get("/notes/:id", function(req, res) {
+    // Grab every document in the Articles collection
+    db.Note.find({"article" : req.params.id})
+      .then(function(dbArticle) {
+          console.log(dbArticle)
+        // If we were able to successfully find Articles, send them back to the client
+        res.json(dbArticle);
+      })
+      .catch(function(err) {
+        // If an error occurred, send it to the client
+        res.json(err);
+      });
   });
 };

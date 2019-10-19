@@ -49,6 +49,21 @@ $.getJSON("/articles", function(data) {
 
         // Get the <span> element that closes the modal
         var span = document.getElementsByClassName("close")[0];
+
+
+        $.ajax({
+            method: "GET",
+            url: "/notes/" + thisId,
+        })
+        .then(function(data) {
+            console.log(data);
+            for (var i = 0; i < data.length; i++) {
+                // Display the apropos information on the page
+                $(".saved-notes").append("<p>" + data[i].body + "</p>");
+              }
+            
+        })
+
         // Display the modal
         modal.style.display = "block";
 

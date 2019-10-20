@@ -1,15 +1,5 @@
 $(function() {
 
-// Grab the articles as a json
-$.getJSON("/articles", function(data) {
-    // For each one
-    for (var i = 0; i < data.length; i++) {
-      // Display the apropos information on the page
-      $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
-    }
-  });
-
-
 // route to save article  
   $(".save-article").on("click", function(event) {
     event.preventDefault();
@@ -35,7 +25,7 @@ $.getJSON("/articles", function(data) {
 
     });
 
-
+    
     // route to save note  
     $(".add-note").on("click", function (event) {
         event.preventDefault();
@@ -56,28 +46,39 @@ $.getJSON("/articles", function(data) {
             url: "/notes/" + thisId,
         })
         .then(function(data) {
-            console.log(data);
+            // Display the modal
+            modal.style.display = "block";
+            //console.log(data);
             for (var i = 0; i < data.length; i++) {
-                // Display the apropos information on the page
-                $(".saved-notes").append("<p>" + data[i].body + "</p>");
+                // Display the information on the page
+                $(".saved-notes").append($('<p>' + data[i].body + '<button class="delete-note">x</button></p>'));
               }
             
         })
 
-        // Display the modal
-        modal.style.display = "block";
-
+        $(".delete-note").on("click", function (event) {
+            event.preventDefault();
+            alert("let's delete this bitch");
+        });
+        
         // When the user clicks on <span> (x), close the modal
         span.onclick = function () {
             modal.style.display = "none";
+            $(".saved-notes").empty();
         }
 
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function (event) {
             if (event.target == modal) {
                 modal.style.display = "none";
+                $(".saved-notes").empty();
             }
         }
+
+        $(".delete-note").on("click", function (event) {
+            event.preventDefault();
+            alert("let's delete this bitch");
+        });
 
         $(".save-note").on("click", function (event) {
             console.log("let's save this note bitch");

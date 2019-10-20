@@ -10,14 +10,45 @@
 
 	<body>
         <div class="jumbotron">
-            <h1>this is the jumbotron</h1>
+            <div id="jumbotron-text">
+            <h1>Positive News Scrape</h1>
             <nav class="navbar navbar-expand-lg navbar-light">
                 <a class="navbar-brand" href="/">All Articles</a>
                 <a class="navbar-brand" href="/saved">Saved</a>
                 <a class="navbar-brand" href="/scrape">Load More</a>
             </nav>
+            </div>
+            <img id="happy-flower" src="images/Happy-flower.jpg" />
         </div>
 		{{{ body }}}
 	</body>
 </html>
+
+<style>
+    body {
+        background-color: #FDEDEC;
+        padding: 20px;
+    }
+
+    .jumbotron {
+        background-color: lightyellow;
+        border: 3px purple solid;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 5px;
+    }
+
+    h3 {
+        text-decoration: underline;
+    }
+
+    #jumbotron-text {
+        display: inline-block;
+    }
+    #happy-flower {
+        display: inline-block;
+    }
+    
+</style>
 

@@ -109,6 +109,7 @@ app.get("/scrape", function (req, res) {
 
         // Send a message to the client
         res.send("Scrape Complete");
+        res.render('index')
     });
 });
 
@@ -127,7 +128,7 @@ app.get("/articles", function(req, res) {
         res.json(err);
       });
   });
-  
+
   // Route for grabbing a specific Article by id, populate it with its note
   app.get("/articles/:id", function(req, res) {
     // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...

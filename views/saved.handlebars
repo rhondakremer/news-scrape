@@ -1,12 +1,12 @@
-<h1>South Florida Classical News Scraping</h1>
+
   {{#each articles}}
   <h3>{{this.title}}</h3> 
   <h4><a href={{this.link}}>{{this.link}}</a></h4>
   <p>{{this.summary}}</p>
-  <p>{{this._id}}</p>
-  <button class="add-note" data-id="{{this._id}}">View/Add Notes</button>
+  <button class="add-note btn btn-secondary" data-id="{{this._id}}">View/Add Notes</button>
   <hr>
     {{/each}}
+  
 
 <!-- The Modal -->
 <div id="myModal" class="modal">
@@ -14,9 +14,13 @@
   <!-- Modal content -->
   <div class="modal-content">
     <span class="close">&times;</span>
-    <div class="saved-notes"></div>
+    <div class="saved-notes">
+        {{#each dbArticle}}
+        <button>this is the ahas</button>
+        {{/each}}
+    </div>
     <input class="modal-text"/>
-    <button type="button" class="btn btn-primary save-note">Save Note</button>
+    <button type="button" class="btn btn-primary save-note delete-note">Save Note</button>
   </div>
 
 </div>
@@ -60,3 +64,10 @@
   cursor: pointer;
 }
 </style>
+
+<script>
+     $(".delete-note").on("click", function (event) {
+            event.preventDefault();
+            alert("let's delete this bitch");
+        });
+</script>

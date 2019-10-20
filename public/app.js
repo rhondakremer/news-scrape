@@ -51,15 +51,15 @@ $(function() {
             //console.log(data);
             for (var i = 0; i < data.length; i++) {
                 // Display the information on the page
-                $(".saved-notes").append($('<p>' + data[i].body + '<button class="delete-note">x</button></p>'));
+                $(".saved-notes").append('<p>' + data[i].body + '<button class="delete-note">x</button></p>');
               }
-            
+              $(".delete-note").on("click", function (event) {
+                event.preventDefault();
+                alert("let's delete this bitch");
+            });
         })
 
-        $(".delete-note").on("click", function (event) {
-            event.preventDefault();
-            alert("let's delete this bitch");
-        });
+        
         
         // When the user clicks on <span> (x), close the modal
         span.onclick = function () {

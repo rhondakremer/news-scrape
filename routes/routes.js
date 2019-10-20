@@ -190,4 +190,22 @@ app.get("/notes/:id", function(req, res) {
         res.json(err);
       });
   });
+
+  //Route to deletes notes
+  app.delete("/notes/:id", function (req, res) {
+    // Create a new note and pass the req.body to the entry
+    db.Note.findByIdAndRemove({ _id: req.params.id })
+        .then(function (dbNote) {
+
+            return db.Article.findOneAndUpdate({ note: req.params.id }, { $pullAll: [{ note: req.params.id }]});
+        })
+        .then(function (dbArticle) {
+            // If we were able to successfully update an Article, send it back to the client
+            res.json(dbArticle);
+        })
+        .catch(function (err) {
+            // If an error occurred, send it to the client
+            res.json(err);
+        });
+});
 };

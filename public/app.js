@@ -51,11 +51,17 @@ $(function() {
             //console.log(data);
             for (var i = 0; i < data.length; i++) {
                 // Display the information on the page
-                $(".saved-notes").append('<p>' + data[i].body + '<button class="delete-note">x</button></p>');
+                $(".saved-notes").append('<p>' + data[i].body + "<button class='delete-note' data-id='" + data[i]._id + "'>x</button></p>");
               }
               $(".delete-note").on("click", function (event) {
                 event.preventDefault();
-                alert("let's delete this bitch");
+                var thisId = $(this).data("id");
+                console.log("this is", thisId);
+                $.ajax("/notes/" + thisId, {
+                    type: "DELETE"
+                }).then(function() {
+                    console.log("deleted successfully")
+                })
             });
         })
 
@@ -74,11 +80,6 @@ $(function() {
                 $(".saved-notes").empty();
             }
         }
-
-        $(".delete-note").on("click", function (event) {
-            event.preventDefault();
-            alert("let's delete this bitch");
-        });
 
         $(".save-note").on("click", function (event) {
             console.log("let's save this note bitch");

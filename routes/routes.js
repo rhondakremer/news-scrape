@@ -167,7 +167,7 @@ app.post("/notes/:id", function(req, res) {
     db.Note.create(req.body)
     .then(function (dbNote) {
         // View the added result in the console
-        console.log(dbNote)
+        res.send(dbNote)
     })
     .catch(function (err) {
         // If an error occurred, log it
@@ -180,7 +180,7 @@ app.get("/notes/:id", function(req, res) {
     // Grab every document in the Articles collection
     db.Note.find({"article" : req.params.id})
       .then(function(dbArticle) {
-          console.log(dbArticle)
+        //   console.log(dbArticle)
         // If we were able to successfully find Articles, send them back to the client
         res.json(dbArticle);
       })

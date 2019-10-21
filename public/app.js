@@ -60,7 +60,8 @@ $(function() {
                 $.ajax("/notes/" + thisId, {
                     type: "DELETE"
                 }).then(function() {
-                    console.log("deleted successfully")
+                    console.log("deleted successfully");
+                    
                 })
             });
         })
@@ -85,7 +86,7 @@ $(function() {
             console.log("let's save this note bitch");
             var newNote = $(".modal-text").val().trim();
             console.log(newNote);
-            modal.style.display = "none";
+            $(".modal-text").val("");
         
 
         // Now make an ajax call to save the note
@@ -97,12 +98,11 @@ $(function() {
                 article: thisId
             }
         })
-            // With that done
             .then(function (data) {
                 // Log the response
-                console.log(data);
-            });
-
+                res.send(data);
+                //console.log("does this even?", data);
+            })
     });
 });
 

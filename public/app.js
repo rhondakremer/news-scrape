@@ -78,7 +78,7 @@ $(function () {
 
             })
         });
-div.puppies                             
+                           
         // When the user clicks on <span> (x), close the modal
         span.onclick = function () {
             modal.style.display = "none";
@@ -135,5 +135,27 @@ div.puppies
         });
     });
 
+    $("#delete-articles").on("click", function (event) {
+        //alert("delete")
+        event.preventDefault();
+        $.ajax("/articles", {
+            method: "DELETE",
+        }).then(function (data) {
+            console.log("all articles deleted.", data)
+        })
+        location.reload();
+    });
+
+    $("#scrape-articles").on("click", function(event) {
+        event.preventDefault();
+        //alert("scrape button is working :)");
+        $.ajax("/scrape", {
+          method: "GET",
+        }).then(function (data) {
+          console.log("new articles scraped", data)
+          location.reload();
+      })
+    })
 })
+
 

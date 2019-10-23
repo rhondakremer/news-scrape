@@ -108,7 +108,7 @@ app.get("/scrape", function (req, res) {
         });
 
         // Send a message to the client
-        res.redirect('/')
+        res.send("Scrape Complete");
     });
 });
 
@@ -193,6 +193,18 @@ app.get("/notes/:id", function(req, res) {
   app.delete("/notes/:id", function (req, res) {
     // Create a new note and pass the req.body to the entry
     db.Note.findByIdAndRemove({ _id: req.params.id })
+        .then(function (dbNote) {
+            res.json(dbNote)
+        })
+        .catch(function (err) {
+            // If an error occurred, send it to the client
+            res.json(err);
+        });
+});
+
+app.delete("/articles", function (req, res) {
+    // Create a new note and pass the req.body to the entry
+    db.Article.remove({})
         .then(function (dbNote) {
             res.json(dbNote)
         })
